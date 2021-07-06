@@ -111,21 +111,22 @@ class Dataset():
 
             split = line.split()
 
-            if split[1] == "ok":
+            if split[1] == "X":
                 gt_dict[split[0]] = " ".join(split[8::]).replace("|", " ")
 
         dataset = dict()
 
         for i in self.partitions:
             dataset[i] = {"dt": [], "gt": []}
+            
 
             for line in paths[i]:
                 try:
-                    split = line.split("-")
-                    folder = f"{split[0]}-{split[1]}"
+                    split = line
+#                     folder = f"{split[0]}-{split[1]}"
 
-                    img_file = f"{split[0]}-{split[1]}-{split[2]}.png"
-                    img_path = os.path.join(self.source, "lines", split[0], folder, img_file)
+                    img_file = f"{split}.png"
+                    img_path = os.path.join(self.source, "lines", img_file)
 
                     dataset[i]['gt'].append(gt_dict[line])
                     dataset[i]['dt'].append(img_path)
@@ -133,6 +134,46 @@ class Dataset():
                     pass
 
         return dataset
+
+#     def _iam(self):
+#         """IAM dataset reader"""
+
+#         pt_path = os.path.join(self.source, "largeWriterIndependentTextLineRecognitionTask")
+#         paths = {"train": open(os.path.join(pt_path, "trainset.txt")).read().splitlines(),
+#                  "valid": open(os.path.join(pt_path, "validationset1.txt")).read().splitlines(),
+#                  "test": open(os.path.join(pt_path, "testset.txt")).read().splitlines()}
+
+#         lines = open(os.path.join(self.source, "ascii", "lines.txt")).read().splitlines()
+#         gt_dict = dict()
+
+#         for line in lines:
+#             if (not line or line[0] == "#"):
+#                 continue
+
+#             split = line.split()
+
+#             if split[1] == "ok" or split[1] == "X" :
+#                 gt_dict[split[0]] = " ".join(split[8::]).replace("|", " ")
+
+#         dataset = dict()
+
+#         for i in self.partitions:
+#             dataset[i] = {"dt": [], "gt": []}
+
+#             for line in paths[i]:
+#                 try:
+#                     split = line.split("-")
+#                     folder = f"{split[0]}-{split[1]}"
+
+#                     img_file = f"{split[0]}-{split[1]}-{split[2]}.png"
+#                     img_path = os.path.join(self.source, "lines", split[0], folder, img_file)
+
+#                     dataset[i]['gt'].append(gt_dict[line])
+#                     dataset[i]['dt'].append(img_path)
+#                 except KeyError:
+#                     pass
+
+#         return dataset
 
     def _rimes(self):
         """Rimes dataset reader"""

@@ -1,0 +1,8 @@
+Total test images:    1425
+Total time:           0:00:44.449462
+Time per item:        0:00:00.031193
+
+Metrics:
+Character Error Rate: 0.05940603
+Word Error Rate:      0.19344671
+Sequence Error Rate:  0.77263158

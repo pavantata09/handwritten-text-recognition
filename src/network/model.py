@@ -420,7 +420,7 @@ def flor(input_size, d_model):
     bgru = Reshape((shape[1], nb_units))(cnn)
 
     bgru = Bidirectional(GRU(units=nb_units, return_sequences=True, dropout=0.5))(bgru)
-    bgru = Dense(units=nb_units * 2)(bgru)
+    bgru = Dense(units=nb_units * 2)(bgru)   
 
     bgru = Bidirectional(GRU(units=nb_units, return_sequences=True, dropout=0.5))(bgru)
     output_data = Dense(units=d_model, activation="softmax")(bgru)
